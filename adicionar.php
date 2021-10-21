@@ -71,7 +71,7 @@
 			$data = mysqli_real_escape_string($conn,$_POST['data']);
 			$ingressos = mysqli_real_escape_string($conn,$_POST['ingressos']);
 			$preco = mysqli_real_escape_string($conn,$_POST['preco']);
-
+	// teste
 			//Criando a query
 			$sql = "INSERT INTO shows(artista, data, local, ingressos, preco) VALUES('$artista','$data','$local' ,'$ingressos' ,'$preco')";
            
