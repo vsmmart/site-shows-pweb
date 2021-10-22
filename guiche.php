@@ -1,88 +1,101 @@
 <?php
-    include('config/bd_conexao.php');
-    
-    //Verificando se o parametro id foi enviado pelo get
-    if(isset($_GET['id'])){
-        
-        //Limpa a query sql
-        $id = mysqli_real_escape_string($conn, $_GET['id']);
+include('config/bd_conexao.php');
 
-        //Monta a query
-        $sqlartista = "SELECT * FROM shows WHERE shows.id = $id";
-        $sqlhorarios = "SELECT dataHora FROM datahorashow WHERE datahorashow.idshow = $id";
-        //Pega o resultado da query
-        $resultartista = mysqli_query($conn, $sqlartista);
-        $resulthorarios = mysqli_query($conn,$sqlhorarios);
+$horarios = [];
+//Verificando se o parametro id foi enviado pelo get
+if (isset($_GET['id'])) {
 
-        //Busca um unico resultado em formato de vetor
-        $show = mysqli_fetch_assoc($resultartista);
-        $show_horario = mysqli_fetch_assoc($resulthorarios);
+    //Limpa a query sql
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
 
-        mysqli_free_result($resultartista);
-        mysqli_free_result($resulthorarios);
+    //Monta a query
+    $sql_artista = "SELECT * FROM shows WHERE id = $id;";
+    $sql_horarios = "SELECT * FROM datahorashow WHERE idShow = $id;";
+    //Pega o resultado da query
+    $resultArtista = mysqli_query($conn, $sql_artista);
+    $resultHorarios = mysqli_query($conn, $sql_horarios);
 
-        mysqli_close($conn);
-        
+    //Busca um unico resultado em formato de vetor
+    $show = mysqli_fetch_assoc($resultArtista);
+    $show_horario = mysqli_fetch_assoc($resultHorarios);
+
+
+    while ($row = mysqli_fetch_array($resultHorarios)) {
+        array_push($horarios, $row);
     }
-    //Remove o show do BD
-    // if(isset($_POST['delete'])){
 
-    //     //Limpa a query sql
-    //     $id_show = mysqli_real_escape_string($conn, $_POST['id']);
+    mysqli_free_result($resultArtista);
+    // mysqli_free_result($resultHorarios);
 
-    //     //Montando a query
-    //     $sql = "DELETE FROM shows WHERE id = $id_show";
+    mysqli_close($conn);
+}
 
-    //     //Removendo do banco
-    //     if(mysqli_query($conn, $sql)){
 
-    //         //Sucesso
-    //         header('Location: index.php');
-    //     } else{
-    //         echo 'query error: '.mysqli_error($conn);
-    //     }
-    // }
- 
 ?>
 
 
 
 <!DOCTYPE html>
 <html>
-    <?php include('templates/header.php'); ?>
+<?php include('templates/header.php'); ?>
 
-    <div class="container center">
-        <?php if($show): ?>
-            <h4> <?php echo $show['nome']; ?></h4>
-            <h5>Descricao: </h5>
-            <p> <?php echo $show['descricao']; ?></p>
-            <h5>Data:</h5>           
-            <p><?php echo date($show_horario['dataHora']); ?></p>
-            <h5>Local:</h5>
-            <p><?php echo $show['local']; ?></p>
-            <h5>Preço:</h5>
-            <p>R$<?php echo $show_horario['valorIngresso']; ?></p>
+<div class="container center">
+    <?php if ($show) : ?>
+        <h4> <?php echo $show['nome']; ?></h4>
+        <h5>Descricao: </h5>
+        <p> <?php echo $show['descricao']; ?></p>
+        <h5>Local:</h5>
+        <p><?php echo $show['local']; ?></p>
+        <h5>Selecione:</h5>
 
-            
-            <!-- Formulario de Edição -->
-            <form action="editar.php" method="POST">
-                <input type="hidden" name="id" value="<?php echo $show['id']; ?>">
-                <input type="submit" name="editar" value="Editar" class="btn brand z-depth-0">
-            </form>
-            
+        <div class="input-field col s12"><select>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+            </select><label>Materialize Select</label>
+        </div>
 
 
-            <!-- Formulario de Remoção -->
-            <!-- <form action="detalhes.php" method="POST">
+        <select name="horarios" id="ddl">
+            <?php
+
+            foreach ($horarios as $h) { ?>
+
+                <option value="x"> <?php "Valor: " . $h['valorIngresso'] . " " . "Data: " . date($h["dataHora"]) . " " . "Nº de Ingressos: " . $h["capacidade"] ?> </option>
+
+            <?php } ?>
+
+        </select>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Formulario de Edição -->
+<form action="editar.php" method="POST">
+    <input type="hidden" name="id" value="<?php echo $show['id']; ?>">
+    <input type="submit" name="editar" value="Editar" class="btn brand z-depth-0">
+</form>
+
+
+
+<!-- Formulario de Remoção -->
+<!-- <form action="detalhes.php" method="POST">
                 <input type="hidden" name="id" value="<?php echo $show['id']; ?>">
                 <input type="submit" name="delete" value="Remover" class="btn brand z-depth-0">
             </form> -->
 
-        <?php else: ?>
-            <h5>Show não encontrado</h5>    
-        <?php endif ?>
-    </div>
-    
-    <?php include('templates/footer.php'); ?>
+<?php else : ?>
+    <h5>Show não encontrado</h5>
+<?php endif ?>
+</div>
+
+<?php include('templates/footer.php'); ?>
 
 </html>

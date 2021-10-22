@@ -42,10 +42,10 @@ include('config/bd_conexao.php');
                     </div>
                     <div class="card-action right-align">
                         <a class="brand-text" href="detalhes.php?id=<?php echo $show['id'] ?>">Mais informações</a>
-                    </div>
-                    <div class="card-action left-align">
                         <a class="brand-text" href="guiche.php?id=<?php echo $show['id'] ?>">Comprar Ingressos</a>
+
                     </div>
+                  
                 </div>
             </div>
 
