@@ -3,7 +3,7 @@
 include('config/bd_conexao.php');
 
     //query para buscar
-    $sql = 'SELECT artista, data, local, ingressos, preco, id FROM shows ORDER BY artista';
+    $sql = 'SELECT nome, local, descricao, id FROM shows ORDER BY nome';
 
     //resultado como um conjunto de linhas
     $result = mysqli_query($conn,$sql);
@@ -32,21 +32,19 @@ include('config/bd_conexao.php');
             <div class ="col s6 md3">
                 <div class="card z-depth-0">
                     <div class="card-content center">
-                        <h6><?php echo htmlspecialchars($show['artista']);?> </h6>
+                        <h6><?php echo htmlspecialchars($show['nome']);?> </h6>
 
-                        <ul class="grey-text">
-                           
+                        <ul class="grey-text">                           
                                 <li> <?php echo htmlspecialchars($show['local']); ?></li>
-                                <li> <?php echo htmlspecialchars($show['data']); ?></li>
-                                <li> <?php echo htmlspecialchars($show['ingressos']); ?></li>
-                                <li> <?php echo htmlspecialchars($show['preco']); ?></li>
-
-                          
+                                <li> <?php echo htmlspecialchars($show['descricao']); ?></li>                                                      
                         </ul>
 
                     </div>
                     <div class="card-action right-align">
                         <a class="brand-text" href="detalhes.php?id=<?php echo $show['id'] ?>">Mais informações</a>
+                    </div>
+                    <div class="card-action left-align">
+                        <a class="brand-text" href="guiche.php?id=<?php echo $show['id'] ?>">Comprar Ingressos</a>
                     </div>
                 </div>
             </div>
