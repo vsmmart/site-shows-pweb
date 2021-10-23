@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
 
     mysqli_close($conn);
 }
-$meia = "A Lei Federal nº 12933/2013, também conhecida como Lei da Meia-Entrada, garante o benefício do pagamento de Meia-Entrada para estudantes, pessoas com deficiência e jovens, de baixa renda, com idade entre 15 e 29 anos.
+$meiaEntrada = "A Lei Federal nº 12933/2013, também conhecida como Lei da Meia-Entrada, garante o benefício do pagamento de Meia-Entrada para estudantes, pessoas com deficiência e jovens, de baixa renda, com idade entre 15 e 29 anos.
 Somente farão jus ao benefício alunos da educação básica e educação superior, conforme previsto no Título V da Lei no 9.394, de 20.12.1996. A lei não estende o benefício a cursos livres, tais como cursos de inglês e informática.
 Pessoas com deficiência e quando necessário, seus acompanhantes, têm direito ao benefício.
 Jovens de 15 a 29 anos, cuja renda familiar mensal seja de até 02 salários mínimos, desde que inscritos no Cadastro Único para Programas Sociais do Governo Federal, podem adquirir os ingressos com 50% de desconto."
@@ -55,23 +55,23 @@ Jovens de 15 a 29 anos, cuja renda familiar mensal seja de até 02 salários mí
 
         foreach ($horarios as $h) { ?>
 
-            <form action="guiche2.php " method="POST">
+            <form action="#" >
                 <p> <?php echo "Data: " . (date($h['dataHora'])) . "</br>" . "Preço Inteira: R$" . $h['valorIngresso'] . "</br>" . " Capacidade: " . $h['capacidade'] . "</br>"; ?>
                     <label>
-                        <input type="number" min="0" id="cbInteira" />
+                        <input type="number" min="0" max="<?php echo $h['capacidade']; ?>" id="inteira" name="inteira" />
                         <span> Inteira </span>
                     </label>
                 <div></div>
                 <label>
-                    <input type="number" min="0" id="cbMeia" />
+                    <input type="number" min="0" max="<?php echo $h['capacidade']; ?>" id="cbMeia" name="meia" />
                     <span> Meia </span>
-                    <p> <?php echo $meia; ?></p>
+                    <p> <?php echo $meiaEntrada; ?></p>
                 </label>
                 </p>
             </form>
 
             <!-- Formulario de Edição -->
-            <form action="guiche2.php" method="POST">
+            <form action="resumo.php" method="POST">
                 <input type="hidden" name="id" value="<?php echo $show['id']; ?>">
                 <input type="hidden" name="id" value="<?php echo $h['id']; ?>">
                 <input type="submit" name="comprar" value="Comprar" class="btn brand z-depth-0">
