@@ -1,4 +1,6 @@
 <?php
+
+
 include('config/bd_conexao.php');
 
 $horarios = [];
@@ -11,14 +13,15 @@ if (isset($_GET['id'])) {
     //Monta a query
     $sql_artista = "SELECT * FROM shows WHERE id = $id;";
     $sql_horarios = "SELECT * FROM datahorashow WHERE idShow = $id;";
-
+   
     //Pega o resultado da query
     $resultArtista = mysqli_query($conn, $sql_artista);
     $resultHorarios = mysqli_query($conn, $sql_horarios);
-
+ 
     //Busca um unico resultado em formato de vetor
     $show = mysqli_fetch_assoc($resultArtista);
     $show_horario = mysqli_fetch_assoc($resultHorarios);
+    
 
 
     while ($row = mysqli_fetch_assoc($resultHorarios)) {
@@ -29,29 +32,6 @@ if (isset($_GET['id'])) {
     mysqli_free_result($resultHorarios);
 
     mysqli_close($conn);
-}
-
-if(isset($_POST['comprar'])){
-
-    $idShow= mysqli_real_escape_string($conn, $_GET['id_show']);
-
-    $idDataShow = mysqli_real_escape_string($conn, $_POST['id_datashow']);
-
-    $meia = mysqli_real_escape_string($conn, $_POST['meia']);
-    $inteira = mysqli_real_escape_string($conn, $_POST['inteira']);
-
-    $ingressos = $meia + $inteira;
-
-    $sql = "SELECT capacidade FROM datahorashow WHERE id = $idDataShow AND idShow = $idShow";
-
-    $result = mysqli_query($conn, $sql);
-    $capacidade = mysqli_fetch_assoc($result);
-
-    $ingressos -= $capacidade[0]; 
-
-    print("Ingressos: ".$ingressos);
-
-
 }
 
 
@@ -76,19 +56,19 @@ Jovens de 15 a 29 anos, cuja renda familiar mensal seja de até 02 salários mí
         <p><?php echo $show['local']; ?></p>
         <h5>Selecione:</h5>
     
-        <?php
-        
+        <?php     
+      
         foreach ($horarios as $h) { ?>
         
             <form action="resumo.php" method="GET">
                 <p> <?php echo "Data: " . (date($h['dataHora'])) . "</br>" . "Preço Inteira: R$" . $h['valorIngresso'] . "</br>" . " Capacidade: " . $h['capacidade'] . "</br>"; ?>
                     <label>
-                        <input type="number" min="0" max="<?php echo $h['capacidade']; ?>" id="inteira" name="inteira"  />
+                        <input type="number" min="0" max="<?php echo $h['capacidade']; ?>" id="inteira" name="inteira" default="0" />
                         <span> Inteira </span>
                     </label>
                 <div></div>
                 <label>
-                    <input type="number" min="0" max="<?php echo $h['capacidade']; ?>" id="cbMeia" name="meia" />
+                    <input type="number" min="0" max="<?php echo $h['capacidade']; ?>" id="cbMeia" name="meia" default= "0"/>
                     <span> Meia </span>
                     <p> <?php echo $meiaEntrada; ?></p>
                 </label>
