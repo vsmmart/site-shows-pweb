@@ -35,12 +35,14 @@ if (isset($_GET['id'])) {
     mysqli_free_result($result);
     mysqli_close($conn);
 }
+
 //Remove o show do BD
 if (isset($_POST['delete'])) {
 
-    //Limpa a query sql
     $id_datahora = mysqli_real_escape_string($conn, $_POST['id']);
 
+
+    $id_show = mysqli_real_escape_string($conn, $_POST['idShow']);
     //Montando a query
     $sql = "DELETE FROM datahorashow WHERE id = $id_datahora";
 
@@ -48,10 +50,20 @@ if (isset($_POST['delete'])) {
     if (mysqli_query($conn, $sql)) {
 
         //Sucesso
-        header('Location: index.php');
+        header("Location: datahora.php?id=$id_show");
     } else {
         echo 'query error: ' . mysqli_error($conn);
     }
+}
+
+//Remove o show do BD
+if (isset($_POST['edit'])) {
+
+    echo $_POST['dataHora'];
+
+    echo $_POST['valorIngresso'];
+
+    echo $_POST['capacidade'];  
 }
 
 if (isset($_POST['enviar'])) {
@@ -64,7 +76,6 @@ if (isset($_POST['enviar'])) {
     } else {
         $data = $_POST['data'];
     }
-        
     //Verificar valor do ingresso
     if ($_POST['valorIngresso'] <= 0) {
         $erros['valorIngresso'] = 'O valor do Ingresso deve ser informado';
@@ -96,6 +107,13 @@ if (isset($_POST['enviar'])) {
         } else {
             echo 'query error: ' . mysqli_error($conn);
         }
+    }
+
+    function SetarDados($idvalue, $idShowvalue, $capacidadevalue,$dataHoravalue,  )
+    {
+        $data = $dataHoravalue;
+        $capacidade = $capacidadevalue;
+        echo $capacidadevalue;
     }
 }
 ?>
@@ -141,17 +159,22 @@ if (isset($_POST['enviar'])) {
                     <li> <?php echo "Data e Hora: " . $datahora['dataHora'] . "</br>"; ?></li>
                     <li> <?php echo "Valor: " . $datahora['valorIngresso'] . "</br>"; ?></li>
 
-                    <select name="cars" id="cars">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                    </select>
+                    <form style="display: flex; justify-content: space-between;" action="datahora.php" method="POST">
+                        <div>
+                            <input type="hidden" name="id" value="<?php echo $datahora['id']; ?>">
+                            <input type="hidden" name="idShow" value="<?php echo $datahora['idShow']; ?>">
+                            <input type="submit" name="delete" value="Remover" class="btn brand z-depth-0">
+                        </div>
+                        <div>
+                            <input type="hidden" name="id" value="<?php echo $datahora['id']; ?>">
+                            <input type="hidden" name="idShow" value="<?php echo $datahora['idShow']; ?>">
+                            <input type="hidden" name="capacidade" value="<?php echo $datahora['capacidade']; ?>">
+                            <input type="hidden" name="dataHora" value="<?php echo $datahora['dataHora']; ?>">
+                            <input type="hidden" name="valorIngresso" value="<?php echo $datahora['valorIngresso']; ?>">
+                            <input type="button" name="edit" value="Editar" onclick="SetarDados($datahora['id'], $datahora['idShow'], $datahora['capacidade'], $datahora['dataHora'])" class="btn brand z-depth-0">
+                        </div>
+                    </form>
 
-                    <div class="card-action">
-                        <a class="brand-text" href="detalhes.php?id=<?php echo $datahora['id'] ?>">Editar</a>
-                        <a type="submit" name="delete" value="Remover" href="detalhes.php?id=<?php echo $datahora['id'] ?>">Excluir</a>
-                    </div>
                 </ul>
             <?php } ?>
         </div>

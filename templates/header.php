@@ -26,7 +26,7 @@
             background-color: #FFFFFF;
         }
         .teste{
-            border-top-style: solid;
+            border-style: solid;
             border-width: 1px;
             border-color:#8E05C2;
         }

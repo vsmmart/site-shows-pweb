@@ -3,7 +3,7 @@
 include('config/bd_conexao.php');
 
 //query para buscar
-$sql = 'SELECT nome, local, descricao, id FROM shows ORDER BY nome';
+$sql = 'SELECT nome, local, descricao, id FROM shows ORDER BY id DESC';
 
 //resultado como um conjunto de linhas
 $result = mysqli_query($conn, $sql);
@@ -51,7 +51,7 @@ mysqli_close($conn);
 <h4 class="center grey-text">Eventos</h4>
 <div class="w3-content" style="max-width:1200px">
   <img class="mySlides" src="images/racionais.jpg" style="width:100%;display:none">
-  <img class="mySlides" src="images/slipknot.jpg" style="width:100%">
+  <img class="mySlides" src="images/rockinrio.jpg" style="width:100%">
   <img class="mySlides" src="images/racanegra.jpg" style="width:100%;display:none">
 
   <div class="w3-row-padding w3-section">
@@ -59,7 +59,7 @@ mysqli_close($conn);
       <img class="demo w3-opacity w3-hover-opacity-off" src="images/racionais.jpg" style="width:100%;cursor:pointer" onclick="currentDiv(1)">
     </div>
     <div class="w3-col s4">
-      <img class="demo w3-opacity w3-hover-opacity-off" src="images/slipknot.jpg" style="width:100%;cursor:pointer" onclick="currentDiv(2)">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="images/rockinrio.jpg" style="width:100%;cursor:pointer" onclick="currentDiv(2)">
     </div>
     <div class="w3-col s4">
       <img class="demo w3-opacity w3-hover-opacity-off" src="images/racanegra.jpg" style="width:100%;cursor:pointer" onclick="currentDiv(3)">
