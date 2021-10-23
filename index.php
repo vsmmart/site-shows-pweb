@@ -3,7 +3,7 @@
 include('config/bd_conexao.php');
 
 //query para buscar
-$sql = 'SELECT nome, local, descricao,id FROM shows ORDER BY nome';
+$sql = 'SELECT nome, local, descricao, id FROM shows ORDER BY nome';
 
 //resultado como um conjunto de linhas
 $result = mysqli_query($conn, $sql);
@@ -16,6 +16,30 @@ mysqli_free_result($result);
 
 //fechar conexão
 mysqli_close($conn);
+
+// if (isset($_POST['filtrar'])) {
+
+    
+//     $data = mysqli_real_escape_string($conn, $_POST['data']);
+//     //Montando a query
+//     $sql = "SELECT DISTINCT id FROM datahorashow WHERE dataHora = $data";
+
+//     $result = mysqli_query($conn, $sql);
+
+//     //busca a query
+//     $ids = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+//     echo var_dump($ids);
+
+//     //Removendo do banco
+//     if (mysqli_query($conn, $sql)) {
+
+//         //Sucesso
+//         header('Location: index.php');
+//     } else {
+//         echo 'query error: ' . mysqli_error($conn);
+//     }
+// }
 
 ?>
 
@@ -75,9 +99,31 @@ function showDivs(n) {
 
                         <ul class="grey-text">
                            
+<?php if (isset($shows)) { ?>
+    <h4 class="center grey-text">Shows Disponíveis</h4>
+    <div class="container">
+        <form class="white" action="index.php" method="POST">
+
+            <label>Data</label>
+
+            <form action="index.php" method="POST">
+                <input type="date" name="data" value="<?php echo date($data) ?>">
+
+                <input type="submit" name="filtrar" value="Filtrar" class="btn brand z-depth-0">
+            </form>
+        </form>
+        <div class="row">
+            <?php foreach ($shows as $show) { ?>
+                <div class="col s6 md3">
+                    <div class="card z-depth-0">
+                        <div class="card-content center">
+                            <h6><?php echo htmlspecialchars($show['nome']); ?> </h6>
+
+                            <ul class="grey-text">
+
                                 <li> <?php echo htmlspecialchars($show['local']); ?></li>
                                 <li> <?php echo htmlspecialchars($show['descricao']); ?></li>
-                               
+
 
                         </div>
                         <div style="display: flex; justify-content: space-between;">
