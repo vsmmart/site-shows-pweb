@@ -5,6 +5,7 @@
 	$erros = array('nome'=>'','local'=>'','descricao'=>'');
 	$nome = $local = $descricao = '';
 	
+
 	if (isset($_POST['enviar'])){
 		
 		//Verificar o nome do evento 
@@ -29,14 +30,13 @@
 			}
 		}
 		
-
-		//Verificar Preço
-
+		//Verificar Descricao
 		if (empty($_POST['descricao'])){
 			$erros['descricao'] = 'Descrição do evento deve ser informada </br>';
 		} else{
 			$descricao = $_POST['descricao'];
 		}
+
         if(array_filter($erros)){
             //echo 'Erro no formulário';
         } else{
@@ -68,7 +68,7 @@
         <h4 class="center">Adicionar Novo Show</h4>
         <form class="white" action="adicionar.php" method="POST">
 
-            <label>nome</label>
+            <label>Nome</label>
             <input type="text" name="nome" value="<?php echo $nome ?>">
             <div class="red-text"><?php echo $erros['nome'].'</br>';?>
 			
@@ -80,6 +80,9 @@
             <input type="text" name="descricao" value="<?php echo $descricao ?>">
             <div class="red-text"><?php echo $erros['descricao'].'</br>';?>
 
+			<label>Imagem</label><br><br>
+			<li><a href="imagem.php" class="btn brand z-depth-0">Adicionar</a></li>
+            
             <div class="center">
                 <input type="submit" name="enviar" value="Enviar" class="btn brand z-depth-0">
             </div>
