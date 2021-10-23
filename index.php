@@ -90,19 +90,7 @@ function showDivs(n) {
 </script>
 
 <div class ="container">
-    <div class="row">
-        <?php foreach($shows as $show){ ?>
-            <div class ="col s6 md3">
-                <div class="card z-depth-0 teste">
-                    <div class="card-content center">
-                        <h6><?php echo htmlspecialchars($show['nome']);?> </h6>
-
-                        <ul class="grey-text">
-                           
-<?php if (isset($shows)) { ?>
-    <h4 class="center grey-text">Shows Disponíveis</h4>
-    <div class="container">
-        <form class="white" action="index.php" method="POST">
+    <form class="white" action="index.php" method="POST">
 
             <label>Data</label>
 
@@ -112,15 +100,15 @@ function showDivs(n) {
                 <input type="submit" name="filtrar" value="Filtrar" class="btn brand z-depth-0">
             </form>
         </form>
-        <div class="row">
-            <?php foreach ($shows as $show) { ?>
-                <div class="col s6 md3">
-                    <div class="card z-depth-0">
-                        <div class="card-content center">
-                            <h6><?php echo htmlspecialchars($show['nome']); ?> </h6>
+    <div class="row">
+        <?php foreach($shows as $show){ ?>
+            <div class ="col s6 md3">
+                <div class="card z-depth-0 teste">
+                    <div class="card-content center">
+                        <h6><?php echo htmlspecialchars($show['nome']);?> </h6>
 
-                            <ul class="grey-text">
-
+                        <ul class="grey-text">
+                           
                                 <li> <?php echo htmlspecialchars($show['local']); ?></li>
                                 <li> <?php echo htmlspecialchars($show['descricao']); ?></li>
 
