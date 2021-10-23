@@ -80,7 +80,7 @@ Jovens de 15 a 29 anos, cuja renda familiar mensal seja de até 02 salários mí
         
         foreach ($horarios as $h) { ?>
         
-            <form action="compraIngresso" >
+            <form action="resumo.php" method="GET">
                 <p> <?php echo "Data: " . (date($h['dataHora'])) . "</br>" . "Preço Inteira: R$" . $h['valorIngresso'] . "</br>" . " Capacidade: " . $h['capacidade'] . "</br>"; ?>
                     <label>
                         <input type="number" min="0" max="<?php echo $h['capacidade']; ?>" id="inteira" name="inteira"  />
@@ -93,20 +93,13 @@ Jovens de 15 a 29 anos, cuja renda familiar mensal seja de até 02 salários mí
                     <p> <?php echo $meiaEntrada; ?></p>
                 </label>
                 </p>
-            </form>
-
-            <!-- Botão Comprar -->
-            <form action="resumo.php" method="POST">
                 <input type="hidden" name="id_show" value="<?php echo $show['id']; ?>">
-                <input type="hidden" name="id_datashow" value="<?php echo $h['id']; ?>">
-                <input type="submit" name="comprar" value="Comprar" class="btn brand z-depth-0">
+                <input type="hidden" name="id_datashow" value="<?php echo $h['id']; ?>">             
+                <input type="submit" name="comprar" class="btn brand z-depth-0">
             </form>
-
+                       
         <?php } ?>
        
-
-
-
 
 </div>
 
