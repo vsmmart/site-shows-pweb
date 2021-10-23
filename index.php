@@ -24,7 +24,7 @@ mysqli_close($conn);
 
 <?php include('templates/header.php'); ?>
 <?php if(isset($shows)){ ?>
-<h4 class="center grey-text">Shows Disponíveis</h4>
+<h4 class="center grey-text">Eventos</h4>
 <div class ="container">
     <div class="row">
         <?php foreach($shows as $show){ ?>

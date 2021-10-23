@@ -1,23 +1,25 @@
 <head>
-    <title>ADS Shows</title>
+    <title>ADS Shows</title>    
     <!--Compiled and Minified CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <style type="text/css">
         .brand{
-            background: #cbb09c !important;
+            background: #700B97 !important;
         }
         .brand-text{
-            color: #cbb09c !important;
+            color: #700B97 !important;
         }
         form{
             max-width: 460px;
             margin: 20px auto;
             padding: 20px;
         }
-
+        body{
+            background-image: url("images/bg.jpg");
+        }
     </style>
 </head>
-<body class = "grey lighten-4">
+<body>
     <nav class="white z-depth-0">
     <div class="container">
         <a href="index.php" class="brand-logo brand-text">ADS Shows</a>
