@@ -10,13 +10,20 @@
         //Monta a query
         $sql = "SELECT * FROM shows WHERE id = $id";
 
+        $dhs = "SELECT * FROM datahorashow WHERE idShow = $id"; 
+
         //Pega o resultado da query
         $result = mysqli_query($conn, $sql);
+        $result2 = mysqli_query($conn, $dhs);
+
 
         //Busca um unico resultado em formato de vetor
         $show = mysqli_fetch_assoc($result);
+        $data =  mysqli_fetch_assoc($result2);
 
         mysqli_free_result($result);
+        mysqli_free_result($result2);
+
         mysqli_close($conn);
         
     }
@@ -53,15 +60,15 @@
 
     <div class="container center">
         <?php if($show): ?>
-            <h4> <?php echo $show['artista']; ?></h4>
+            <h4> <?php echo $show['nome']; ?></h4>
             <h5>Data: </h5>
-            <p> <?php echo date($show['data']); ?></p>
+            <p> <?php echo date($data['dataHora']); ?></p>
             <h5>Local:</h5>
             <p><?php echo $show['local']; ?></p>
             <h5>Quantidade de Ingressos:</h5>
-            <p><?php echo $show['ingressos']; ?></p>
+            <p><?php echo $data['capacidade']; ?></p>
             <h5>Preço:</h5>
-            <p>R$<?php echo $show['preco']; ?></p>
+            <p>R$<?php echo $data['valorIngresso']; ?></p>
 
             
             <!-- Formulario de Edição -->
