@@ -25,11 +25,51 @@ mysqli_close($conn);
 <?php include('templates/header.php'); ?>
 <?php if(isset($shows)){ ?>
 <h4 class="center grey-text">Eventos</h4>
+<div class="w3-content" style="max-width:1200px">
+  <img class="mySlides" src="images/racionais.jpg" style="width:100%;display:none">
+  <img class="mySlides" src="images/slipknot.jpg" style="width:100%">
+  <img class="mySlides" src="images/racanegra.jpg" style="width:100%;display:none">
+
+  <div class="w3-row-padding w3-section">
+    <div class="w3-col s4">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="images/racionais.jpg" style="width:100%;cursor:pointer" onclick="currentDiv(1)">
+    </div>
+    <div class="w3-col s4">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="images/slipknot.jpg" style="width:100%;cursor:pointer" onclick="currentDiv(2)">
+    </div>
+    <div class="w3-col s4">
+      <img class="demo w3-opacity w3-hover-opacity-off" src="images/racanegra.jpg" style="width:100%;cursor:pointer" onclick="currentDiv(3)">
+    </div>
+  </div>
+</div>
+
+<script>
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
+  }
+  x[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " w3-opacity-off";
+}
+</script>
+
 <div class ="container">
     <div class="row">
         <?php foreach($shows as $show){ ?>
             <div class ="col s6 md3">
-                <div class="card z-depth-0">
+                <div class="card z-depth-0 teste">
                     <div class="card-content center">
                         <h6><?php echo htmlspecialchars($show['nome']);?> </h6>
 
