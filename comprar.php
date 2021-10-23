@@ -17,7 +17,7 @@ include('config/bd_conexao.php');
     //fechar conexão
     mysqli_close($conn);
 
-    //print_r(explode(',',$pizzas[0]['ingredientes']));
+
 ?>
 
 <!DOCTYPE html>
