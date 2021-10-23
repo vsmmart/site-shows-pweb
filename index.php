@@ -3,7 +3,7 @@
 include('config/bd_conexao.php');
 
 //query para buscar
-$sql = 'SELECT nome, local, descricao,id FROM shows ORDER BY nome';
+$sql = 'SELECT nome, local, descricao, id FROM shows ORDER BY nome';
 
 //resultado como um conjunto de linhas
 $result = mysqli_query($conn, $sql);
